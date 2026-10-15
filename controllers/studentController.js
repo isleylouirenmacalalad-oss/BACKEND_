@@ -5,15 +5,21 @@ export const fetchAllStudents = async (req, res) => {
     res.status(200).json(student);
 }
 
-export const createStudent = async (req, res) =>{
+export const createStudents = async (req, res) =>{
     const {name, srcode, program} = req.body;
-    const student = {name, srcode, program};
+    const book = {name, srcode, program};
+}
+
+export const editStudent = async (req, res) =>{
+    const {name, srcode, program} = req.body;
+    const { id } = req.params;
+    const student = {id: parseInt(id), name, srcode, program};
 
     try{
-        const studentId = await studentService.createStudent(student);
+        const updatestudent = await studentService.updateStudent(student);
         res.status(200).json({
             success: true,
-            message: studentId
+            message: updatestudent
         });
     }catch(e){
         console.log(e);
@@ -22,3 +28,4 @@ export const createStudent = async (req, res) =>{
         });
     }
 }
+
